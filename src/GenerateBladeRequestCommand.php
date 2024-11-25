@@ -48,8 +48,10 @@ class GenerateBladeRequestCommand extends Command
                 $fieldType = 'date';
             } elseif (str_contains($validationRules, 'email')) {
                 $fieldType = 'email';
-            } else {
+            } elseif (str_contains($validationRules, 'password')) {
                 $fieldType = 'password';
+            } else {
+                $fieldType = 'text';
             }
 
             if (str_contains($validationRules, '|in:')) {
