@@ -10,7 +10,6 @@ class GenerateBladeFromRequestServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        // Register the Blade form generation command
         $this->commands([
             GenerateBladeRequestCommand::class,
         ]);

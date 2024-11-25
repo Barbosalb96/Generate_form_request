@@ -3,7 +3,7 @@
   "type": "library",
   "autoload": {
     "psr-4": {
-      "Lucas\\Blade\\": "src/"
+      "barbosalb96\\Blade\\": "src/"
     }
   },
   "authors": [
