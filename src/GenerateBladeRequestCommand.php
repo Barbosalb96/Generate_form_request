@@ -40,36 +40,49 @@ class GenerateBladeRequestCommand extends Command
                 $fieldType = 'number';
             } elseif (str_contains($validationRules, 'boolean')) {
                 $fieldType = 'checkbox';
+            } elseif (str_contains($validationRules, '|in:')) {
+                $fieldType = 'select';
             } elseif (str_contains($validationRules, 'date')) {
                 $fieldType = 'date';
             } elseif (str_contains($validationRules, 'email')) {
                 $fieldType = 'email';
             }
+            if (str_contains($validationRules, '|in:')) {
+                $separetor = explode('in:', $validationRules);
+                $arraySeparetor = explode('|', $separetor[1]);
 
-            $formFields[] = [
-                'name' => $field,
-                'label' => $fieldLabel,
-                'type' => $fieldType,
-                'required' => $required,
-            ];
+                $formFields[] = [
+                    'name' => $field,
+                    'label' => $fieldLabel,
+                    'type' => $fieldType,
+                    'required' => $required,
+                    'options' => explode(',', $arraySeparetor[0])
+                ];
+            } else {
+                $formFields[] = [
+                    'name' => $field,
+                    'label' => $fieldLabel,
+                    'type' => $fieldType,
+                    'required' => $required,
+                ];
+            }
+
+            if ($type == 'tailwind') {
+                $bladeContent = view('form_template_tailwind', compact('formFields'));
+            } else {
+                $bladeContent = view('form_template_bootstrap', compact('formFields'));
+            }
+
+
+            $formPath = resource_path("views/{$requestName}.blade.php");
+
+            if (File::exists($formPath)) {
+                $this->info("O formulário Blade já existe: {$formPath}");
+                return;
+            }
+
+            File::put($formPath, $bladeContent);
+
+            $this->info("Formulário gerado com sucesso: {$formPath}");
         }
-
-        if ($type == 'tailwind') {
-            $bladeContent = view('form_template_tailwind', compact('formFields'));
-        } else {
-            $bladeContent = view('form_template_bootstrap', compact('formFields'));
-        }
-
-
-        $formPath = resource_path("views/{$requestName}.blade.php");
-
-        if (File::exists($formPath)) {
-            $this->info("O formulário Blade já existe: {$formPath}");
-            return;
-        }
-
-        File::put($formPath, $bladeContent);
-
-        $this->info("Formulário gerado com sucesso: {$formPath}");
     }
-}

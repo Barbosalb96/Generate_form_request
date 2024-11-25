@@ -20,7 +20,7 @@ After installation, you can use the `make:form-from-request` command to generate
 ### Command Syntax
 
 ```bash
-php artisan make:form-from-request {request} type {type}
+php artisan make:form-from-request {request}  {type}
 ```
 
 - `{request}`: The name of the request class (e.g., `UserRequest`).
