@@ -12,8 +12,7 @@
       "email": "lucas.silva@ati.ma.gov.br"
     }
   ],
-  "require": {
-  },
+  "require": {},
   "license": "MIT",
   "extra": {
     "laravel": {
