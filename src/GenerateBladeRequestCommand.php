@@ -29,6 +29,9 @@ class GenerateBladeRequestCommand extends Command
         foreach ($rules as $field => $validationRules) {
             $fieldLabel = ucfirst(str_replace('_', ' ', $field));
             $fieldType = 'text';
+            if (is_array($validationRules)) {
+                $validationRules = implode('|', $validationRules);
+            }
             $required = in_array('required', explode('|', $validationRules)) ? 'required' : '';
 
             if (str_contains($validationRules, 'string')) {
