@@ -1,5 +1,5 @@
 {
-  "name": "lucas/blade",
+  "name": "barbosalb96/blade",
   "type": "library",
   "autoload": {
     "psr-4": {
@@ -12,13 +12,19 @@
       "email": "lucas.silva@ati.ma.gov.br"
     }
   ],
-  "require": {},
+  "require": {
+    "php": "^7.4|^8.0",
+    "illuminate/support": "^8.0|^9.0|^10.0"
+  },
   "license": "MIT",
   "extra": {
     "laravel": {
       "providers": [
-        "YourVendor\\YourPackage\\Providers\\BladeServiceProvider"
-      ]
+        "barbosalb96\\Blade\\GenerateBladeFromRequestServiceProvider"
+      ],
+      "aliases": {
+        "BladeGenerator": "barbosalb96\\Blade\\GenerateBladeRequestCommand"
+      }
     }
   }
 }

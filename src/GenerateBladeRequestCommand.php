@@ -1,6 +1,6 @@
 <?php
 
-namespace Lucas\Blade;
+namespace barbosalb96\Blade;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
