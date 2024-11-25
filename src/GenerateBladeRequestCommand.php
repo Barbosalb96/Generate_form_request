@@ -46,17 +46,23 @@ class GenerateBladeRequestCommand extends Command
                 $fieldType = 'date';
             } elseif (str_contains($validationRules, 'email')) {
                 $fieldType = 'email';
+            } elseif (str_contains($validationRules, 'password')) {
+                $fieldType = 'password';
+            } else {
+                $fieldType = 'text';
             }
+
             if (str_contains($validationRules, '|in:')) {
-                $separetor = explode('in:', $validationRules);
-                $arraySeparetor = explode('|', $separetor[1]);
+                $ruleParts = explode('|in:', $validationRules);
+                $optionsString = isset($ruleParts[1]) ? explode('|', $ruleParts[1])[0] : '';
+                $options = explode(',', $optionsString);
 
                 $formFields[] = [
                     'name' => $field,
                     'label' => $fieldLabel,
                     'type' => $fieldType,
                     'required' => $required,
-                    'options' => explode(',', $arraySeparetor[0])
+                    'options' => $options,
                 ];
             } else {
                 $formFields[] = [
@@ -66,6 +72,7 @@ class GenerateBladeRequestCommand extends Command
                     'required' => $required,
                 ];
             }
+
 
             if ($type == 'tailwind') {
                 $bladeContent = view('form_template_tailwind', compact('formFields'));
