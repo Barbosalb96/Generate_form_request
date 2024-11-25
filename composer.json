@@ -13,8 +13,6 @@
     }
   ],
   "require": {
-    "illuminate/support": "*",
-    "barbosalb96/blade": "dev-master"
   },
   "license": "MIT",
   "extra": {
