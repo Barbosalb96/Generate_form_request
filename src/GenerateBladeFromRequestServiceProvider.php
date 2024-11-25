@@ -1,9 +1,7 @@
 <?php
-
 namespace barbosalb96\Blade;
 
 use Illuminate\Support\ServiceProvider;
-
 use barbosalb96\Blade\GenerateBladeRequestCommand;
 
 class GenerateBladeFromRequestServiceProvider extends ServiceProvider
