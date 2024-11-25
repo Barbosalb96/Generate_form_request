@@ -1,0 +1,24 @@
+{
+  "name": "lucas/blade",
+  "type": "library",
+  "autoload": {
+    "psr-4": {
+      "Lucas\\Blade\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Lucas Silva",
+      "email": "lucas.silva@ati.ma.gov.br"
+    }
+  ],
+  "require": {},
+  "license": "MIT",
+  "extra": {
+    "laravel": {
+      "providers": [
+        "YourVendor\\YourPackage\\Providers\\BladeServiceProvider"
+      ]
+    }
+  }
+}
