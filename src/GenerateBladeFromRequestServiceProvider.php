@@ -14,16 +14,15 @@ class GenerateBladeFromRequestServiceProvider extends ServiceProvider
             GenerateBladeRequestCommand::class,
         ]);
 
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'lucas/blade');
-
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'barbosalb96/blade');
 
         $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/lucas/blade'),
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/barbosalb96/blade'),
         ], 'views');
     }
 
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'lucas/blade');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'barbosalb96/blade');
     }
 }
