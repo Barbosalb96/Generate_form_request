@@ -8,8 +8,8 @@ use Illuminate\Support\Str;
 
 class GenerateBladeRequestCommand extends Command
 {
-    protected $signature = 'make:form-from-request {request} type {type}';
-    protected $description = 'Gera um formulário Blade com base no Request fornecido, com as validações necessárias';
+    protected $signature = 'make:form-from-request {request} {type}';
+    protected $description = 'Gera um formulário Blade com base no Request fornecido, com as validações necessárias.';
 
     public function handle()
     {
@@ -29,9 +29,11 @@ class GenerateBladeRequestCommand extends Command
         foreach ($rules as $field => $validationRules) {
             $fieldLabel = ucfirst(str_replace('_', ' ', $field));
             $fieldType = 'text';
+
             if (is_array($validationRules)) {
                 $validationRules = implode('|', $validationRules);
             }
+
             $required = in_array('required', explode('|', $validationRules)) ? 'required' : '';
 
             if (str_contains($validationRules, 'string')) {
@@ -46,10 +48,8 @@ class GenerateBladeRequestCommand extends Command
                 $fieldType = 'date';
             } elseif (str_contains($validationRules, 'email')) {
                 $fieldType = 'email';
-            } elseif (str_contains($validationRules, 'password')) {
-                $fieldType = 'password';
             } else {
-                $fieldType = 'text';
+                $fieldType = 'password';
             }
 
             if (str_contains($validationRules, '|in:')) {
@@ -72,24 +72,25 @@ class GenerateBladeRequestCommand extends Command
                     'required' => $required,
                 ];
             }
-
-
-            if ($type == 'tailwind') {
-                $bladeContent = view('form_template_tailwind', compact('formFields'));
-            } else {
-                $bladeContent = view('form_template_bootstrap', compact('formFields'));
-            }
-
-
-            $formPath = resource_path("views/{$requestName}.blade.php");
-
-            if (File::exists($formPath)) {
-                $this->info("O formulário Blade já existe: {$formPath}");
-                return;
-            }
-
-            File::put($formPath, $bladeContent);
-
-            $this->info("Formulário gerado com sucesso: {$formPath}");
         }
+
+        // Determine the Blade template based on the type
+        $bladeTemplate = $type === 'tailwind' ? 'form_template_tailwind' : 'form_template_bootstrap';
+
+        if (!view()->exists($bladeTemplate)) {
+            $this->error("O template Blade {$bladeTemplate} não foi encontrado.");
+            return;
+        }
+
+        $bladeContent = view($bladeTemplate, compact('formFields'))->render();
+        $formPath = resource_path("views/{$requestName}.blade.php");
+
+        if (File::exists($formPath)) {
+            $this->info("O formulário Blade já existe: {$formPath}");
+            return;
+        }
+
+        File::put($formPath, $bladeContent);
+        $this->info("Formulário gerado com sucesso: {$formPath}");
     }
+}
