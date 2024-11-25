@@ -14,7 +14,7 @@ class GenerateBladeFromRequestServiceProvider extends ServiceProvider
         ]);
 
         $this->publishes([
-            __DIR__ . '/resources/views' => $this->app->langPath() . 'views/vendor/barbosalb96/blade',
+            __DIR__ . '/resources/views' => 'resources\views',
         ], 'views');
     }
 
